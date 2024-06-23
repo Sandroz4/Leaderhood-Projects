@@ -43,10 +43,13 @@
                 const weatherDisplay = document.getElementById('weather-display')
 
                 weatherDisplay.innerHTML = `
-                    <h2>${weatherData.weather[0].description}</h2>
-                    <p>temp: ${weatherData.main.temp} °C</p>
-                    <p>humidity: ${weatherData.main.humidity} %</p>
-                    <p>wind speed: ${weatherData.wind.speed} m/s</p>`
+    <h2>${weatherData.weather[0].description}</h2>
+    <p>temp: ${(weatherData.main.temp - 273.15).toFixed(2)} °C</p>
+    <p>humidity: ${weatherData.main.humidity} %</p>
+    <p>wind speed: ${weatherData.wind.speed} m/s</p>
+`;
+
+
             }
         })
     </script>
