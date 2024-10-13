@@ -9,14 +9,13 @@ def anagram_grouper(arr):
     anagrams = {}
 
     for i in arr:
+        # ვასორტირებთ სტრინგებს, შემდეგ შედარებისთვის
         sorted_string = ''.join(sorted(i))
-    
+
+        # საწყისს სტრინგს ვაბრუბებთ შესაბამის სიაში
         if sorted_string not in anagrams:
             anagrams[sorted_string] = []
             anagrams[sorted_string].append(i)
 
     return list(anagrams.values())
 
-
-
-print(anagram_grouper(["eat", "tea", "tan", "ate", "nat", "bat"]))
