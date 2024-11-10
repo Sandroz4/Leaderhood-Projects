@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - SBank</title>
+</head>
+<body>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "JetBrains Mono", monospace;
+    }
+
+
+    header{
+        background: beige;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+    }
+
+    nav{
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 2rem;
+    }
+
+    nav ul{
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+    }
+
+    nav a{
+        color: black;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+        color: blue;
+    }
+
+    .hamburger{
+        display: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .products-hero{
+        background: beige;
+    }
+
+    .products-hero {
+        background: gray;
+        background-size: cover;
+        background-position: center;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        margin-top: 60px;
+    }
+
+    .products-grid {
+        max-width: 1200px;
+        margin: 4rem auto;
+        padding: 0 2rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .product-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-card h3 {
+        color: #2d3748;
+        margin-bottom: 1rem;
+    }
+
+    .product-card ul {
+        list-style: none;
+        margin: 1rem 0;
+    }
+
+    .product-card li {
+        margin-bottom: 0.5rem;
+        color: #4a5568;
+    }
+
+    .apply-btn {
+        background: #4299e1;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .apply-btn:hover {
+        background: #2b6cb0;
+    }
+
+
+    footer{
+        background: gray;
+        color: white;
+        padding: 3rem 2rem;
+    }
+
+    .footer-content{
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    footer-section h4{
+        margin-bottom: 1rem;
+    }
+
+    .footer-section ul{
+        list-style: none;
+    }
+
+    .footer-section a{
+        color: black;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer-section a:hover{
+        color: white;
+    }
+
+    .social-links{
+        display: flex;
+        gap: 1rem;
+    }
+    </style>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html"  class="active">Products</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+            <div class="hamburger">☰</div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="products-hero">
+            <h1>our banking products</h1>
+            <p>discover financial solutions, tailored to your needs</p>
+        </section>
+
+
+        <section class="products-grid">
+            <div class="products-card">
+                <h3>saving account</h3>
+                <p>earn competetive interest rates</p>
+                <ul>
+                    <li>high interest rates</li>
+                    <li>no minimum balances</li>
+                    <li>free online banking</li>
+                </ul>
+                <button class="apply-btn">Apply Now</button>
+            </div>
+        </section>
+    </main>
+
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact us</h4>
+                <p>Email: sandrozabakhidze888@gmail.com</p>
+                <p>phone: 591-12-40-66</p>
+            </div>
+            <div class="footer-section">
+                <h4>quick links</h4>
+                <ul>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow us</h4>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+    const applyButtons = document.querySelectorAll('.apply-btn')
+
+    applyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const user = JSON.parse(localStorage.getItem('currentUser'))
+            if (!user){
+                alert('Please login to apply for our products')
+                window.location.href = 'login.html'
+            }else{
+                alert('Thank you for your interest, our team will contact you soon.')
+            }
+        })
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Register</title>
+</head>
+<body>
+    <style>
+            *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "JetBrains Mono", monospace;
+    }
+
+
+    header{
+        background: beige;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+    }
+
+    nav{
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 2rem;
+    }
+
+    nav ul{
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+    }
+
+    nav a{
+        color: black;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+        color: blue;
+    }
+
+    .hamburger{
+        display: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+
+
+    main{
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+ 
+    padding: 20px;
+}
+
+.auth-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.auth-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+.auth-form .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.auth-form label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+    footer{
+        background: gray;
+        color: white;
+        padding: 3rem 2rem;
+    }
+
+    .footer-content{
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    footer-section h4{
+        margin-bottom: 1rem;
+    }
+
+    .footer-section ul{
+        list-style: none;
+    }
+
+    .footer-section a{
+        color: black;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer-section a:hover{
+        color: white;
+    }
+
+    .social-links{
+        display: flex;
+        gap: 1rem;
+    }
+    </style>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="login.html"  class="active">Login</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+            <div class="hamburger">☰</div>
+        </nav>
+    </header>
+
+
+    <main>
+        <section class="auth-container">
+            <h1>Welcome back!</h1>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Login</button>
+                <p class="auth-link">Don't have an ccount? <a href="register.html">Register here</a></p>
+            </form>
+        </section>
+    </main>
+
+
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact us</h4>
+                <p>Email: sandrozabakhidze888@gmail.com</p>
+                <p>phone: 591-12-40-66</p>
+            </div>
+            <div class="footer-section">
+                <h4>quick links</h4>
+                <ul>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow us</h4>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <script>
+        const loginForm = document.getElementById('loginForm')
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // user from localstorage
+            const users = JSON.parse(localStorage.getItem('users' || '[]'))
+
+            // find
+
+            const user = users.find(u => u.email === email && u.password === password)
+
+            if(user){
+                // store user
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                window.location.href = 'admin.html'
+
+            }else{
+                    window.location.href = 'index.html'
+                }
+
+        })
+    </script>
+</body>
+</html>
