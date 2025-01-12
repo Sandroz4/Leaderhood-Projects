@@ -1,0 +1,7 @@
+1. create array with 5 unique elements and set count = 0.
+2. for i = 0 to 4:
+    a. perform assignment
+    b. increment count
+3. repeat step 2 for n times, incrementing count each time.
+4. compute average assignments = total/n.
+5. output average assignments.
