@@ -1,0 +1,5 @@
+დავალება 9:
+
+● თქვენი სიტყვებით ახსენით რა არის შემდეგი ტერმინები და როდის გვხვდება,
+ვიყენებთ მათ: linux, debian, virtual box, executable file, makefile, MATE
+terminal, kate, pluma, IDLE, Synaptic pkexec
