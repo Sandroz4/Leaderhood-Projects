@@ -1,0 +1,6 @@
+function linear(list, target):
+    for index from 0 to len(list) - 1:
+        if list[index] == target:
+            return index
+    return -1
+    
