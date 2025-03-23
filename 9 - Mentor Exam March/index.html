@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task Manager</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&family=Poppins:wght@100..900&display=swap');
+
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        input, textarea, select, button {
+            width: 100%;
+            margin-top: 12px;
+            padding: 12px;
+            font-size: 1em;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+        }
+
+        button {
+            background-color: #6200ea;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3700b3;
+        }
+
+        .task-item {
+            background: #fff;
+            padding: 18px;
+            margin-top: 10px;
+            border-left: 5px solid #6200ea;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .quote {
+            padding: 25px;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0px 0px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .quote p {
+            font-size: 1.1em;
+            color: #555;
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            h1, h2 {
+                font-size: 1.6em;
+            }
+
+            button {
+                font-size: 1.1em;
+            }
+        }
+
+
+        #location-input {
+            max-width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+        }
+
+        #get-weather-btn {
+            max-width: 100%;
+            padding: 12px;
+            background-color: #6200ea;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        #get-weather-btn:hover {
+            background-color: #3700b3;
+        }
+
+        #container-weather{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            justify-content: center;
+            margin: auto;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>task manager</h1>
+        </header>
+        <div class="main-content">
+            <h2>add new task</h2>
+            <form id="task-form">
+                <label for="task-title">title</label>
+                <input type="text" id="task-title" required placeholder="enter task title">
+                <label for="task-description">description</label>
+                <textarea id="task-description" required placeholder="enter task description"></textarea>
+                <label for="task-due-date">due date</label>
+                <input type="date" id="task-due-date">
+                <label for="task-priority">priority</label>
+                <select id="task-priority">
+                    <option value="low">low</option>
+                    <option value="medium" selected>medium</option>
+                    <option value="high">high</option>
+                </select>
+                <button type="submit">add task</button>
+            </form>
+            <h2>my tasks</h2>
+            <select id="task-filter">
+                <option value="all">all tasks</option>
+                <option value="completed">completed</option>
+                <option value="active">active</option>
+                <option value="high">high priority</option>
+            </select>
+            <div id="task-list"></div>
+        </div>
+    </div>
+
+    <div id="container-weather">
+        <h1 id="main-h1">weather app</h1>
+        <input id="location-input" type="text" placeholder="enter your location">
+        <button id="get-weather-btn">get weather info</button>
+        <div id="weather-display"></div>
+    </div>
+
+    <script>
+        document.getElementById('get-weather-btn').addEventListener('click', function() {
+            const location = document.getElementById('location-input').value;
+
+            if (location) {
+                const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=8005e0a1974f974d81c999400dd12dc9`;
+
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(weatherData => displayWeather(weatherData))
+                    .catch(error => console.error('Error fetching weather data', error));
+            } else {
+                console.error('Location input is empty');
+            }
+
+            function displayWeather(weatherData) {
+                const weatherDisplay = document.getElementById('weather-display');
+                weatherDisplay.innerHTML = `
+                    <h2>${weatherData.weather[0].description}</h2>
+                    <p>temp: ${(weatherData.main.temp - 273.15).toFixed(2)} °C</p>
+                    <p>humidity: ${weatherData.main.humidity} %</p>
+                    <p>wind speed: ${weatherData.wind.speed} m/s</p>
+                `;
+            }
+        });
+
+        const taskForm = document.getElementById('task-form');
+        const taskList = document.getElementById('task-list');
+        const taskFilter = document.getElementById('task-filter');
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+        function saveTasks() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        taskForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('task-title').value.trim();
+            const description = document.getElementById('task-description').value.trim();
+            const dueDate = document.getElementById('task-due-date').value;
+            const priority = document.getElementById('task-priority').value;
+            if (!title) return;
+
+            const newTask = {
+                id: Date.now().toString(),
+                title,
+                description,
+                dueDate,
+                priority,
+                completed: false
+            };
+
+            tasks.unshift(newTask);
+            saveTasks();
+            renderTasks();
+            taskForm.reset();
+        });
+
+        function renderTasks() {
+            const filterValue = taskFilter.value;
+            let filteredTasks = tasks.filter(task => {
+                if (filterValue === 'completed') return task.completed;
+                if (filterValue === 'active') return !task.completed;
+                if (filterValue === 'high') return task.priority === 'high';
+                return true;
+            });
+
+            taskList.innerHTML = filteredTasks.length === 0 ? '<div>No tasks found</div>' : '';
+            filteredTasks.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.classList.add('task-item');
+                if (task.completed) taskElement.classList.add('completed');
+                taskElement.innerHTML = `
+                    <div>
+                        <input type="checkbox" onclick="toggleTask('${task.id}')" ${task.completed ? 'checked' : ''}>
+                        <span>${task.title}</span>
+                    </div>
+                    <div>${task.description || 'No description'}</div>
+                    <div>${task.dueDate ? 'Due: ' + task.dueDate : ''}</div>
+                    <button onclick="deleteTask('${task.id}')">Delete</button>
+                `;
+                taskList.appendChild(taskElement);
+            });
+        }
+
+        function toggleTask(taskId) {
+            tasks = tasks.map(task => task.id === taskId ? { ...task, completed: !task.completed } : task);
+            saveTasks();
+            renderTasks();
+        }
+
+        function deleteTask(taskId) {
+            tasks = tasks.filter(task => task.id !== taskId);
+            saveTasks();
+            renderTasks();
+        }
+
+        taskFilter.addEventListener('change', renderTasks);
+
+        renderTasks();
+    </script>
+</body>
+</html>
