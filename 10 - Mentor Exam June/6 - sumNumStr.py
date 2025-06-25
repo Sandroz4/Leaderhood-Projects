@@ -16,12 +16,12 @@ def sum_numbers(text):
                 result += number
                 current_num = ''
 
-    if current_num != "":
-        number = int(current_num)
-        result += number
-    return result 
+    # if current_num != "":
+    #     number = int(current_num)
+    #     result += number
+    # return result 
 
-print(sum_numbers("7 apples and 3 oranges"))
+print(sum_numbers("100 200"))
 
 
 # Test Cases:

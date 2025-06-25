@@ -1,7 +1,7 @@
 # 1️⃣ Sum Digits Until Single Digit
 # Instructions:
 
-#  Write a function that takes a non-negative integer and 
+# Write a function that takes a non-negative integer and 
 # returns the sum of its digits. If the result has more than 
 # one digit, repeat the process until the result is a single digit.
 

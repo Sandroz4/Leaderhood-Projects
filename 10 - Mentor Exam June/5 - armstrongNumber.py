@@ -13,7 +13,7 @@ def armstrong_number(num):
         result += int(i) ** len(num)
     return result == int(num)
 
-print(armstrong_number(153))
+print(armstrong_number(9474))
 
 
 # Test Cases:
